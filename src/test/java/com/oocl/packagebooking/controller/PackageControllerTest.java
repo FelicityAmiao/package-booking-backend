@@ -31,7 +31,6 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 
 @RunWith(SpringRunner.class)
 @SpringBootTest
-@DataJpaTest
 @AutoConfigureMockMvc
 public class PackageControllerTest {
 
@@ -39,35 +38,27 @@ public class PackageControllerTest {
     private MockMvc mockMvc;
 
     @MockBean
-    private PackageService service;
+    private PackageRepository packageRepository;
 
-    @Ignore
     @Test
     public void should_return_packages_when_call_getAllPackages() throws Exception {
 
         Packages package1 = new Packages();
+        package1.setWaybillId(1l);
         package1.setUserName("Amiao");
         package1.setPhone("15222366954");
         package1.setStatus("未取件");
-        package1.setOrderTime(new SimpleDateFormat("yyyy-MM-dd HH:mm:ss").format(new Date()));
+        package1.setOrderTime("2019-07-25 20:16:46");
         package1.setWeight("3KG");
-
 
         ArrayList<Packages> objects = new ArrayList<>();
         objects.add(package1);
-//        when(service.getAllPackages()).thenReturn(set);
-        given(service.getAllPackages()).willReturn(objects);
+        given(packageRepository.findAll()).willReturn(objects);
 
         mockMvc.perform(get("/packages"))
                 .andExpect(status().isOk())
-                .andExpect(content().contentType("application/json"))
-                .andExpect(content().json("[{\n" +
-                        "    \"waybillId\": 1,\n" +
-                        "    \"userName\": \"Amiao\",\n" +
-                        "    \"phone\": \"15222366954\",\n" +
-                        "    \"orderTime\": \"2019-7-25 18:20:00\",\n" +
-                        "    \"weight\": \"3KG\"\n" +
-                        "}]"));
+                .andExpect(content().contentType("application/json;charset=UTF-8"))
+                .andExpect(content().string("[{\"waybillId\":1,\"userName\":\"Amiao\",\"phone\":\"15222366954\",\"status\":\"未取件\",\"orderTime\":\"2019-07-25 20:16:46\",\"weight\":\"3KG\"}]"));
     }
 
 }
