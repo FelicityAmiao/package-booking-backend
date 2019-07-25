@@ -14,7 +14,7 @@ public class Packages {
     private Long waybillId;
     private String userName;
     private String phone;
-    private String status;
+    private String status = "未取件";
     private Long orderTime;
     private String weight;
 
