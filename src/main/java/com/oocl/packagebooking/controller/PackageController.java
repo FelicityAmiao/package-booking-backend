@@ -23,4 +23,9 @@ public class PackageController {
     public Packages addAPackages(@RequestBody Packages packages) {
         return  packageService.add(packages);
     }
+
+    @GetMapping(params = {"status"})
+    public List<Packages> getPackagesByStatus(@RequestParam String status) {
+        return packageService.getPackagesByStatus(status);
+    }
 }
