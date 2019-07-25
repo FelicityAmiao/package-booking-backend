@@ -28,4 +28,9 @@ public class PackageController {
     public List<Packages> getPackagesByStatus(@RequestParam String status) {
         return packageService.getPackagesByStatus(status);
     }
+
+    @PutMapping
+    public Packages modifyPackageStatus(@RequestBody Packages packages) {
+        return packageService.modifyPackageStatus(packages);
+    }
 }

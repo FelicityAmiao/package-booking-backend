@@ -24,4 +24,8 @@ public class PackageService {
     public List<Packages> getPackagesByStatus(String status) {
         return packageRepository.findByStatus(status);
     }
+
+    public Packages modifyPackageStatus(Packages status) {
+        return packageRepository.save(status);
+    }
 }
