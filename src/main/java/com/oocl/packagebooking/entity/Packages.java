@@ -1,8 +1,7 @@
 package com.oocl.packagebooking.entity;
 
+import javax.persistence.Column;
 import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
@@ -53,10 +52,12 @@ public class Packages {
 
     public String getOrderTime() {
         Long orderTime = this.orderTime;
+        if (orderTime == null || orderTime == 0) return null;
         return new SimpleDateFormat("yyyy-MM-dd HH:mm:ss").format(new Date(orderTime));
     }
 
     public void setOrderTime(String orderTime) throws ParseException {
+        if (orderTime == null) this.orderTime = null;
         long time = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss").parse(orderTime).getTime();
         this.orderTime = time;
     }
