@@ -4,17 +4,19 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 
 @Entity
 public class Packages {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
     private Long waybillId;
     private String userName;
     private String phone;
     private String status;
-    private String orderTime;
+    private Long orderTime;
     private String weight;
 
     public Long getWaybillId() {
@@ -50,11 +52,13 @@ public class Packages {
     }
 
     public String getOrderTime() {
-        return orderTime;
+        Long orderTime = this.orderTime;
+        return new SimpleDateFormat("yyyy-MM-dd HH:mm:ss").format(new Date(orderTime));
     }
 
-    public void setOrderTime(String orderTime) {
-        this.orderTime = orderTime;
+    public void setOrderTime(String orderTime) throws ParseException {
+        long time = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss").parse(orderTime).getTime();
+        this.orderTime = time;
     }
 
     public String getWeight() {
